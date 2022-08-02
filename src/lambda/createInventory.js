@@ -23,7 +23,7 @@ module.exports = async (body) => {
   //   Item: formatParams(body),
   // };
   // const result = await createItem(params, "leads");
-  const result = "hello world";
+  const result = "creating items with the cure";
   console.log("body", body);
   return result;
 };
