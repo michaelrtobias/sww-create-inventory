@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+    commands:
+      - echo "startinng build building"
+  pre_build:
+    commands:
+      - npm install
+      - echo "insatlled npm package"
+  build:
+    commands:
+      - echo "bundling the applictaion"
+      - mkdir build
+      - npm run zipper
+      - echo "build is successful"
+  post_build:
+    commands:
+      - echo "Uploading bundle to s3"
+      - npm run push-to-s3-codebuild
+      - echo "Push to s3 successful"
+      - echo "Upadting Lambda"
+      - npm run update-lambda
+      - echo "Lambda Code Updated"

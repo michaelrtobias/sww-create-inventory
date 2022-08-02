@@ -1,0 +1,33 @@
+{
+  "name": "sww-create-inventory",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "zipper": "zip -r9 build/create-inventory.zip .",
+    "push-to-s3": "aws s3 sync --profile TMG_michael --acl private build/ s3://mundo-group-lambda-code/lambdas",
+    "push-to-s3-codebuild": "aws s3 sync --acl private build/ s3://mundo-group-lambda-code/lambdas",
+    "deploy": "npm run zipper && npm run push-to-s3",
+    "update-lambda": "aws --region us-east-1 lambda update-function-code --function-name create-inventory --s3-bucket mundo-group-lambda-code --s3-key lambdas/create-inventory.zip --publish",
+    "update-lambda-local": "aws --region us-east-1 lambda update-function-code --profile TMG_michael --function-name create-inventory --s3-bucket mundo-group-lambda-code --s3-key lambdas/create-inventory.zip --publish",
+    "local-deploy": "npm run deploy && npm run update-lambda-local",
+    "debug-invoke": "node --nolazy .debug/invoke.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelrtobias/sww-create-inventory.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michaelrtobias/sww-create-inventory/issues"
+  },
+  "homepage": "https://github.com/michaelrtobias/sww-create-inventory#readme",
+  "dependencies": {
+    "aws-sdk": "^2.1186.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.21.0"
+  }
+}
