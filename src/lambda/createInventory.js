@@ -18,7 +18,6 @@ const formatParams = (body) => {
       },
     },
   }));
-  // do something with images
   params = {
     ...params,
     timestamp: {
@@ -27,10 +26,13 @@ const formatParams = (body) => {
     colorway: {
       S: `${body.model_number.toLowerCase()}-${body.dial.toLowerCase()}-${body.bezel.toLowerCase()}`,
     },
-    images: {
-      L: formattedImages,
-    },
   };
+
+  if (body.images) {
+    params.images = {
+      L: formattedImages,
+    };
+  }
 
   return params;
 };
@@ -40,7 +42,6 @@ module.exports = async (body) => {
     Item: formatParams(body),
     ConditionExpression: "attribute_not_exists(colorway)",
   };
-  console.log("params", params);
   const result = await createItem(params, "watchInventory");
   return result;
 };
