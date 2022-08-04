@@ -28,7 +28,7 @@ const formatParams = (body) => {
     },
   };
 
-  if (body.images) {
+  if (params.images) {
     params.images = {
       L: formattedImages,
     };
